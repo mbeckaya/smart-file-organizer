@@ -1,5 +1,7 @@
 from pathlib import Path
 
+from organizer.file_categorizer import FileCategorizer
+
 def main() -> bool:
     print("=" * 60)
     print("SMART FILE ORGANIZER".center(60))
@@ -17,6 +19,18 @@ def main() -> bool:
         return False
 
     print(f"[SUCCESS] Directory validated: {current_path}")
+
+    categorizer = FileCategorizer()
+    files_with_cats = categorizer.add(current_path.iterdir())
+
+    for cat, cat_files in files_with_cats.items():
+        if cat_files:
+            print(f"[CATEGORY] {cat}")
+            for docs in cat_files:
+                print(f"  - {docs}")
+            print("-" * 60)
+
+    return True
 
 if __name__ == '__main__':
     main()
