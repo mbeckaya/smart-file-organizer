@@ -1,5 +1,6 @@
 from pathlib import Path
 
+
 class FileCategorizer:
     def add(self, files: list[Path]) -> dict[str, list]:
         files_with_cats = {

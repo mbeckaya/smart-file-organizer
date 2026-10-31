@@ -1,6 +1,8 @@
 from pathlib import Path
 
 from organizer.file_categorizer import FileCategorizer
+from analytics.file_analyzer import FileAnalyzer
+
 
 def main() -> bool:
     print("=" * 60)
@@ -26,9 +28,21 @@ def main() -> bool:
     for cat, cat_files in files_with_cats.items():
         if cat_files:
             print(f"[CATEGORY] {cat}")
-            for docs in cat_files:
-                print(f"  - {docs}")
+            for file in cat_files:
+                print(f"  - {file}")
             print("-" * 60)
+
+    file_stats = FileAnalyzer(files_with_cats, current_path).count_files()
+    
+    print("FILE ANALYSIS")
+    print("-" * 60)
+    for label, value in file_stats.items():
+        if label == "Total":
+            label = "Total files"
+        elif label == "Total storage":
+            print(f"{label}: {value}")
+            continue
+        print(f"{label}: {value}")
 
     return True
 
