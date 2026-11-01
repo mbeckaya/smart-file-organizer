@@ -2,6 +2,7 @@ from pathlib import Path
 
 from organizer.file_categorizer import FileCategorizer
 from analytics.file_analyzer import FileAnalyzer
+from analytics.duplicate_finder import DuplicateFinder
 
 
 def main() -> bool:
@@ -33,9 +34,10 @@ def main() -> bool:
             print("-" * 60)
 
     file_stats = FileAnalyzer(files_with_cats, current_path).count_files()
-    
+
     print("FILE ANALYSIS")
     print("-" * 60)
+    
     for label, value in file_stats.items():
         if label == "Total":
             label = "Total files"
@@ -43,6 +45,19 @@ def main() -> bool:
             print(f"{label}: {value}")
             continue
         print(f"{label}: {value}")
+
+    print("-" * 60)
+    print("DUPLICATE DETECTION")
+    print("-" * 60)
+
+    duplicate_finder = DuplicateFinder(files_with_cats, current_path)
+    duplicates_total, duplicates = duplicate_finder.check()
+
+    print(f"[INFO] Duplicate files found: {duplicates_total}")
+
+    for files in duplicates:
+        for file in files:
+            print(f"  - {file}")
 
     return True
 

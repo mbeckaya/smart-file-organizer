@@ -45,10 +45,10 @@ Please enter a directory path: C:\Users\Alex\Downloads
 
 [SUCCESS] Directory validated: C:\Users\Alex\Downloads
 
-[CATEGORY] documents
+[CATEGORY] Documents
   - report.pdf
 
-[CATEGORY] images
+[CATEGORY] Images
   - vacation.jpg
 
 ------------------------------------------------------------
@@ -65,7 +65,10 @@ Total storage: 1.5 GB
 ------------------------------------------------------------
 DUPLICATE DETECTION
 ------------------------------------------------------------
-[INFO] Duplicate files found: 2
+[INFO] Duplicate files found: 3
+- report.pdf
+- report_copy.pdf
+- report_copy_copy.pdf
 
 [INFO] Move the listed files now? [y/N]:
 ```
