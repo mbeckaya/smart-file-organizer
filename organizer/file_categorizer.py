@@ -1,8 +1,9 @@
+from collections.abc import Iterable
 from pathlib import Path
 
 
 class FileCategorizer:
-    def add(self, files: list[Path]) -> dict[str, list]:
+    def add(self, files: Iterable[Path]) -> dict[str, list[str]]:
         files_with_cats = {
             "Archives": [],
             "Audios": [],
@@ -13,6 +14,9 @@ class FileCategorizer:
         }
 
         for file in files:
+            if not file.is_file():
+                continue
+
             category = self.get_category(file)
             files_with_cats[category].append(file.name)
 
@@ -49,6 +53,7 @@ class FileCategorizer:
             file_cat = "Others"
 
         return file_cat
+
 
 if __name__ == "__main__":
     categorizer = FileCategorizer()

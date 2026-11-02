@@ -70,7 +70,11 @@ DUPLICATE DETECTION
 - report_copy.pdf
 - report_copy_copy.pdf
 
-[INFO] Move the listed files now? [y/N]:
+[INFO] Move the listed files now? [y/N]: y
+
+[INFO] Starting file organization...
+
+[SUCCESS] File organization completed.
 ```
 
 ## Tech

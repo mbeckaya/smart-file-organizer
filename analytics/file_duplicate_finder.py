@@ -2,7 +2,7 @@ from pathlib import Path
 import hashlib
 
 
-class DuplicateFinder:
+class FileDuplicateFinder:
     def __init__(self, files: dict[str, list], directory: Path):
         self.__files = files
         self.__directory = directory
@@ -39,6 +39,6 @@ if __name__ == "__main__":
         "Documents": [path.name for path in directory.glob("*")],
     }
 
-    finder = DuplicateFinder(files, directory)
+    finder = FileDuplicateFinder(files, directory)
     result = finder.check()
     print(result)

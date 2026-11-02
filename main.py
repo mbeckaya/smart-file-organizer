@@ -1,8 +1,9 @@
 from pathlib import Path
 
-from organizer.file_categorizer import FileCategorizer
 from analytics.file_analyzer import FileAnalyzer
-from analytics.duplicate_finder import DuplicateFinder
+from analytics.file_duplicate_finder import FileDuplicateFinder
+from organizer.file_categorizer import FileCategorizer
+from organizer.file_mover import FileMover
 
 
 def main() -> bool:
@@ -37,7 +38,7 @@ def main() -> bool:
 
     print("FILE ANALYSIS")
     print("-" * 60)
-    
+
     for label, value in file_stats.items():
         if label == "Total":
             label = "Total files"
@@ -50,7 +51,7 @@ def main() -> bool:
     print("DUPLICATE DETECTION")
     print("-" * 60)
 
-    duplicate_finder = DuplicateFinder(files_with_cats, current_path)
+    duplicate_finder = FileDuplicateFinder(files_with_cats, current_path)
     duplicates_total, duplicates = duplicate_finder.check()
 
     print(f"[INFO] Duplicate files found: {duplicates_total}")
@@ -59,7 +60,24 @@ def main() -> bool:
         for file in files:
             print(f"  - {file}")
 
+    user_action = input("[INFO] Move the listed files now? [y/N]: ").lower()
+
+    if user_action != "y":
+        print("[INFO] Operation cancelled. No files were moved.")
+        return False
+
+    print("[INFO] Starting file organization...")
+
+    mover = FileMover(files_with_cats, current_path)
+    files_moved = mover.move()
+
+    if not files_moved:
+        print("[WARNING] No files were moved.")
+        return False
+    
+    print("[SUCCESS] File organization completed.")
     return True
 
+    
 if __name__ == '__main__':
     main()
