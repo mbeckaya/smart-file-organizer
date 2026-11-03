@@ -1,7 +1,5 @@
 # Smart File Organizer
 
-🚧 **Status: In Progress**
-
 A lightweight Python tool that organizes files in a selected directory into category folders based on their file extensions. Files are listed for review before you confirm the move.
 
 ## Features
