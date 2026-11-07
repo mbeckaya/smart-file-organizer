@@ -1,80 +1,60 @@
 # Smart File Organizer
 
-A lightweight Python tool that organizes files in a selected directory into category folders based on their file extensions. Files are listed for review before you confirm the move.
+Smart File Organizer is a command-line application for reviewing and organizing files in a directory. It categorizes files by extension, reports file counts and storage usage, identifies files with identical content, and moves files into category folders only after user confirmation.
 
 ## Features
 
-- Automatic file categorization
-- File preview and confirmation before moving
-- Categories for documents, images, archives, audio, videos, and other files
-- Organized category subfolders inside the selected directory
-- **Basic file analytics:** Displays the total number of files, storage usage, and file counts per category
-- **Duplicate file detection:** Identifies files with identical content and displays them for review without automatically deleting anything
+- Categorizes files into **Archives**, **Audios**, **Documents**, **Images**, **Videos**, and **Others**
+- Shows a preview of the files found before making changes
+- Reports the total file count, storage usage, and count per category
+- Detects files with identical content and lists them for review; duplicates are not deleted
+- Moves the listed files into category subfolders after the user confirms
+- Includes pytest unit tests for categorization, moving, analytics, and duplicate detection
+
+The application scans files directly inside the selected directory; it does not scan subdirectories recursively. To proceed with moving files, enter `y` at the confirmation prompt. Any other input cancels the operation.
 
 ## Requirements
 
-- Python 3.x
+- Python 3.10 or newer
+- pip
 
-No additional libraries are required. The project uses Python's built-in modules.
+Install the dependencies from the project directory:
 
-## Usage
+```bash
+pip install -r requirements.txt
+```
 
-Start the program from the project directory:
+## Run the application
+
+From the project directory, start the interactive organizer with:
 
 ```bash
 python main.py
 ```
 
-Enter the directory you want to organize. The program scans the directory and displays the files it found by category.
+Enter the path to the directory you want to organize. The application displays its file preview, analysis, and duplicate results before asking whether to move the files.
 
-It also provides a basic file analysis showing the total number of files, storage usage, and the number of files in each category. Duplicate files with identical content can also be detected and displayed.
+## Run the tests
 
-Nothing is moved until you confirm with `y`; pressing Enter or entering anything else cancels the operation.
+The project includes pytest unit tests. Run the full test suite from the project directory with:
 
-## Example
-
-```text
-============================================================
-                 SMART FILE ORGANIZER
-     Preview mode — files move only after confirmation
-============================================================
-
-Please enter a directory path: C:\Users\Alex\Downloads
-
-[SUCCESS] Directory validated: C:\Users\Alex\Downloads
-
-[CATEGORY] Documents
-  - report.pdf
-
-[CATEGORY] Images
-  - vacation.jpg
-
-------------------------------------------------------------
-FILE ANALYSIS
-------------------------------------------------------------
-Total files: 120
-Documents: 35
-Images: 50
-Videos: 15
-Other: 20
-
-Total storage: 1.5 GB
-
-------------------------------------------------------------
-DUPLICATE DETECTION
-------------------------------------------------------------
-[INFO] Duplicate files found: 3
-- report.pdf
-- report_copy.pdf
-- report_copy_copy.pdf
-
-[INFO] Move the listed files now? [y/N]: y
-
-[INFO] Starting file organization...
-
-[SUCCESS] File organization completed.
+```bash
+python -m pytest
 ```
 
-## Tech
+## Project structure
 
-**Python · File System Automation · pathlib · hashlib · Basic Data Analytics**
+```text
+analytics/
+    file_analyzer.py
+    file_duplicate_finder.py
+organizer/
+    file_categorizer.py
+    file_mover.py
+tests/
+main.py
+```
+
+## Technologies
+
+Python, pathlib, hashlib, and pytest
