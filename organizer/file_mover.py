@@ -22,15 +22,3 @@ class FileMover:
                     src.rename(dest)
 
         return files_moved
-
-
-if __name__ == "__main__":
-    directory = Path("test_directory")
-
-    files = {
-        "Documents": [path.name for path in directory.glob("*.pdf")],
-        "Images": [path.name for path in directory.glob("*.jpg")],
-    }
-
-    mover = FileMover(files, directory)
-    mover.move()

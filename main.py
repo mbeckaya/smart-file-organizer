@@ -12,7 +12,7 @@ def main() -> bool:
     print("Preview mode — files move only after confirmation".center(60))
     print("=" * 60)
 
-    user_path = input("Please enter a directory path: ")
+    user_path = input("Please enter a directory path: ").strip()
 
     current_path = Path(user_path)
 
@@ -24,7 +24,13 @@ def main() -> bool:
 
     print(f"[SUCCESS] Directory validated: {current_path}")
 
-    categorizer = FileCategorizer()
+    user_dir_format_action = input(
+        "[INFO] Should folder names be uppercase? [Y/n]: "
+    ).strip().lower()
+
+    is_uppercase = user_dir_format_action != "n"
+    
+    categorizer = FileCategorizer(is_uppercase)
     files_with_cats = categorizer.add(current_path.iterdir())
 
     for cat, cat_files in files_with_cats.items():
@@ -60,9 +66,11 @@ def main() -> bool:
         for file in files:
             print(f"  - {file}")
 
-    user_action = input("[INFO] Move the listed files now? [y/N]: ").lower()
+    user_continue_action = input(
+        "[INFO] Move the listed files now? [y/N]: "
+    ).strip().lower()
 
-    if user_action != "y":
+    if user_continue_action != "y":
         print("[INFO] Operation cancelled. No files were moved.")
         return False
 

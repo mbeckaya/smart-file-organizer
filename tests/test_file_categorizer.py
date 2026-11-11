@@ -15,7 +15,7 @@ def create_tmp_files(tmp_path) -> list[Path]:
 
     return list(tmp_path.iterdir())
 
-def test_file_categorization(tmp_path):
+def test_file_categorization_uppercase(tmp_path):
     categorizer = FileCategorizer()
     result = categorizer.add(create_tmp_files(tmp_path))
     
@@ -25,3 +25,14 @@ def test_file_categorization(tmp_path):
     assert "document.pdf" in result["Documents"]
     assert "image.jpg" in result["Images"]
     assert len(result["Others"]) == 0
+
+def test_file_categorization_lowercase(tmp_path):
+    categorizer = FileCategorizer(False)
+    result = categorizer.add(create_tmp_files(tmp_path))
+    
+    assert len(result["archives"]) == 0
+    assert len(result["audios"]) == 0
+    assert "notes.txt" in result["documents"]
+    assert "document.pdf" in result["documents"]
+    assert "image.jpg" in result["images"]
+    assert len(result["others"]) == 0

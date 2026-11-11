@@ -34,6 +34,8 @@ python main.py
 
 Enter the path to the directory you want to organize. The application displays its file preview, analysis, and duplicate results before asking whether to move the files.
 
+After validating the directory, choose the capitalization for the category folder names. The default (`Y`) uses names such as `Documents`; enter `n` to use lowercase names such as `documents`.
+
 ### Example terminal session
 
 The following example uses sample files and sizes. Your results will depend on the files in the selected directory. The text after each prompt is the user's input:
@@ -45,6 +47,7 @@ The following example uses sample files and sizes. Your results will depend on t
 ============================================================
 Please enter a directory path: C:\Users\Alex\Downloads\to-organize
 [SUCCESS] Directory validated: C:\Users\Alex\Downloads\to-organize
+[INFO] Should folder names be uppercase? [Y/n]: y
 [CATEGORY] Archives
   - backup.zip
 ------------------------------------------------------------

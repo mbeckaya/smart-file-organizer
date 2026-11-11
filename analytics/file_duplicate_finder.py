@@ -30,15 +30,3 @@ class FileDuplicateFinder:
             sum(len(files) for files in duplicates.values()),
             duplicates.values()
         )
-
-
-if __name__ == "__main__":
-    directory = Path("test_directory")
-
-    files = {
-        "Documents": [path.name for path in directory.glob("*")],
-    }
-
-    finder = FileDuplicateFinder(files, directory)
-    result = finder.check()
-    print(result)

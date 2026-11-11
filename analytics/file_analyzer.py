@@ -37,14 +37,3 @@ class FileAnalyzer:
             if size < 1024 or unit == "TB":
                 return f"{size:.1f} {unit}"
             size /= 1024
-
-
-if __name__ == "__main__":
-    directory = Path("test_directory")
-    files = {
-        "Documents": [path.name for path in directory.glob("*.pdf")],
-    }
-
-    analyzer = FileAnalyzer(files, directory)
-    result = analyzer.count_files()
-    print(result)
