@@ -34,6 +34,65 @@ python main.py
 
 Enter the path to the directory you want to organize. The application displays its file preview, analysis, and duplicate results before asking whether to move the files.
 
+### Example terminal session
+
+The following example uses sample files and sizes. Your results will depend on the files in the selected directory. The text after each prompt is the user's input:
+
+```text
+============================================================
+                    SMART FILE ORGANIZER
+      Preview mode — files move only after confirmation
+============================================================
+Please enter a directory path: C:\Users\Alex\Downloads\to-organize
+[SUCCESS] Directory validated: C:\Users\Alex\Downloads\to-organize
+[CATEGORY] Archives
+  - backup.zip
+------------------------------------------------------------
+[CATEGORY] Audios
+  - song.mp3
+------------------------------------------------------------
+[CATEGORY] Documents
+  - budget.xlsx
+  - notes.txt
+  - notes-copy.txt
+------------------------------------------------------------
+[CATEGORY] Images
+  - photo.jpg
+------------------------------------------------------------
+[CATEGORY] Others
+  - installer.exe
+------------------------------------------------------------
+[CATEGORY] Videos
+  - clip.mp4
+------------------------------------------------------------
+FILE ANALYSIS
+------------------------------------------------------------
+Total files: 8
+Archives: 1
+Audios: 1
+Documents: 3
+Images: 1
+Others: 1
+Videos: 1
+Total storage: 28.4 MB
+------------------------------------------------------------
+DUPLICATE DETECTION
+------------------------------------------------------------
+[INFO] Duplicate files found: 2
+  - notes.txt
+  - notes-copy.txt
+[INFO] Move the listed files now? [y/N]: y
+[INFO] Starting file organization...
+[SUCCESS] File organization completed.
+```
+
+Enter `y` to move the files into category subfolders. Any other input cancels the operation and leaves the files in place:
+
+```text
+[INFO] Move the listed files now? [y/N]: n
+[INFO] Operation cancelled. No files were moved.
+```
+
 ## Run the tests
 
 The project includes pytest unit tests. Run the full test suite from the project directory with:
