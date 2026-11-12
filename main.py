@@ -29,8 +29,17 @@ def main() -> bool:
     ).strip().lower()
 
     is_uppercase = user_dir_format_action != "n"
+
+    user_dir_language_action = input(
+        "[INFO] Folder names in English or German? [EN/de]: "
+    ).strip().upper()
+
+    language = "DE" if user_dir_language_action == "DE" else "EN"
     
-    categorizer = FileCategorizer(is_uppercase)
+    categorizer = FileCategorizer(
+        is_uppercase=is_uppercase,
+        language=language,
+    )
     files_with_cats = categorizer.add(current_path.iterdir())
 
     for cat, cat_files in files_with_cats.items():

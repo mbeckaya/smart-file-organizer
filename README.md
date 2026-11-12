@@ -34,7 +34,18 @@ python main.py
 
 Enter the path to the directory you want to organize. The application displays its file preview, analysis, and duplicate results before asking whether to move the files.
 
-After validating the directory, choose the capitalization for the category folder names. The default (`Y`) uses names such as `Documents`; enter `n` to use lowercase names such as `documents`.
+After validating the directory, choose whether category folder names start with a capital letter. The default (`Y`) uses names such as `Documents`; enter `n` to use lowercase names such as `documents`. Then choose the folder-name language: `EN` (the default) or `DE`.
+
+### CLI input and output
+
+`main.py` prompts for these inputs in order:
+
+1. **Directory path** — enter the directory to scan. It must exist and be a directory; otherwise, the CLI prints an `[ERROR]` message and stops.
+2. **Folder-name capitalization** — enter `n` for lowercase names. Any other input, including an empty response, uses names with an initial capital.
+3. **Folder-name language** — enter `DE` for German category folder names (`Archive`, `Audios`, `Dokumente`, `Bilder`, `Andere`, `Videos`). Any other input, including an empty response, uses English names. This choice changes category and folder names; the other CLI messages remain in English.
+4. **Move confirmation** — enter `y` to move files, or any other input to cancel. The default is cancellation.
+
+Before the move confirmation, the CLI prints the files grouped by category, a file analysis (total files, counts per category, and total storage), and the duplicate-file results. Duplicate files are listed for review; they are not deleted. On confirmation, it prints a start message followed by a success message if files were moved. If there are no files to move, it prints a warning instead. On cancellation, it reports that no files were moved.
 
 ### Example terminal session
 
@@ -48,6 +59,7 @@ The following example uses sample files and sizes. Your results will depend on t
 Please enter a directory path: C:\Users\Alex\Downloads\to-organize
 [SUCCESS] Directory validated: C:\Users\Alex\Downloads\to-organize
 [INFO] Should folder names be uppercase? [Y/n]: y
+[INFO] Folder names in English or German? [EN/de]: en
 [CATEGORY] Archives
   - backup.zip
 ------------------------------------------------------------

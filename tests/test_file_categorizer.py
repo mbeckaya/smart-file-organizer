@@ -27,7 +27,7 @@ def test_file_categorization_uppercase(tmp_path):
     assert len(result["Others"]) == 0
 
 def test_file_categorization_lowercase(tmp_path):
-    categorizer = FileCategorizer(False)
+    categorizer = FileCategorizer(is_uppercase=False)
     result = categorizer.add(create_tmp_files(tmp_path))
     
     assert len(result["archives"]) == 0
@@ -36,3 +36,44 @@ def test_file_categorization_lowercase(tmp_path):
     assert "document.pdf" in result["documents"]
     assert "image.jpg" in result["images"]
     assert len(result["others"]) == 0
+
+def test_file_categorization_language_EN(tmp_path):
+    categorizer = FileCategorizer(is_uppercase=False)
+    result = categorizer.add(create_tmp_files(tmp_path))
+    
+    assert len(result["archives"]) == 0
+    assert len(result["audios"]) == 0
+    assert "notes.txt" in result["documents"]
+    assert "document.pdf" in result["documents"]
+    assert "image.jpg" in result["images"]
+    assert len(result["others"]) == 0
+
+def test_file_categorization_language_DE(tmp_path):
+    categorizer = FileCategorizer(is_uppercase=False, language="DE")
+    result = categorizer.add(create_tmp_files(tmp_path))
+    
+    assert len(result["archive"]) == 0
+    assert len(result["audios"]) == 0
+    assert "notes.txt" in result["dokumente"]
+    assert "document.pdf" in result["dokumente"]
+    assert "image.jpg" in result["bilder"]
+    assert len(result["andere"]) == 0
+
+def test_video_and_unknown_extensions_use_correct_categories(tmp_path):
+    video_file = tmp_path / "clip.mp4"
+    video_file.touch()
+    unknown_file = tmp_path / "installer.exe"
+    unknown_file.touch()
+
+    english_result = FileCategorizer(is_uppercase=False).add(
+        [video_file, unknown_file]
+    )
+    german_result = FileCategorizer(
+        is_uppercase=False,
+        language="DE",
+    ).add([video_file, unknown_file])
+
+    assert "clip.mp4" in english_result["videos"]
+    assert "installer.exe" in english_result["others"]
+    assert "clip.mp4" in german_result["videos"]
+    assert "installer.exe" in german_result["andere"]
