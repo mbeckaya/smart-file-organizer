@@ -124,6 +124,7 @@ analytics/
     file_duplicate_finder.py
 organizer/
     file_categorizer.py
+    file_organizer.py
     file_mover.py
 tests/
 main.py
